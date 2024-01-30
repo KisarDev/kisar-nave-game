@@ -25,8 +25,9 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
 
     elif event.key == pygame.K_SPACE:
         # Cria um novo projétil e o adiciona
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
+        if len(bullets) < ai_settings.bullets_allowed:
+            new_bullet = Bullet(ai_settings, screen, ship)
+            bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
