@@ -17,10 +17,13 @@ def run_game():
     screen.fill(ai_settings.bg_color)
     ship = Ship(ai_settings, screen)
     bullets = Group()
+    aliens = Group()
+    gf.create_fleet(ai_settings, screen, aliens, ship)
 
     # Inicia o laço principal do jogo
     while True:
         ship.update()
+
         # Livra-se dos projéteis que desapareceram
         gf.update_bullets(bullets)
 
@@ -28,7 +31,7 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
 
         # Deixa a tela mais recente visível
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, bullets, aliens)
 
 
 run_game()
