@@ -22,6 +22,10 @@ def run_game():
     while True:
         ship.update()
         bullets.update()
+        # Livra-se dos projéteis que desapareceram
+        for bullet in bullets.copy():
+            if bullet.rect.bottom <= 0:
+                bullets.remove(bullet)
         # Observa eventos de teclado e de mouse
         gf.check_events(ai_settings, screen, ship, bullets)
         # Deixa a tela mais recente visível
