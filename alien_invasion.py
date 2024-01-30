@@ -21,13 +21,12 @@ def run_game():
     # Inicia o laço principal do jogo
     while True:
         ship.update()
-        bullets.update()
         # Livra-se dos projéteis que desapareceram
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
+        gf.update_bullets(bullets)
+
         # Observa eventos de teclado e de mouse
         gf.check_events(ai_settings, screen, ship, bullets)
+
         # Deixa a tela mais recente visível
         gf.update_screen(ai_settings, screen, ship, bullets)
 

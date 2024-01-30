@@ -48,3 +48,13 @@ def update_screen(ai_settings, screen, ship, bullets):
     ship.blitme()
     # Redesenha todos os projéteis atrás da espaçonave e dos alienígenas y
     pygame.display.flip()
+
+
+def update_bullets(bullets):
+    """Atualiza a posição dos projéteis e se livra dos projéteis antigos."""
+    # Atualiza as posições dos projéteis
+    bullets.update()
+    # Livra-se dos projéteis que desapareceram
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
