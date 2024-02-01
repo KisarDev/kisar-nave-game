@@ -25,7 +25,9 @@ def run_game():
         ship.update()
 
         # Livra-se dos projéteis que desapareceram
-        gf.update_bullets(bullets)
+        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+
+        gf.update_aliens(ai_settings, aliens)
 
         # Observa eventos de teclado e de mouse
         gf.check_events(ai_settings, screen, ship, bullets)
