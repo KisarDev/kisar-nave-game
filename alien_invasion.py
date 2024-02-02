@@ -3,6 +3,7 @@ from settings import Settings
 from ship import Ship
 import pygame
 from pygame.sprite import Group
+from game_stats import GameStats
 
 
 def run_game():
@@ -18,6 +19,7 @@ def run_game():
     ship = Ship(ai_settings, screen)
     bullets = Group()
     aliens = Group()
+    stats = GameStats(ai_settings)
     gf.create_fleet(ai_settings, screen, aliens, ship)
 
     # Inicia o laço principal do jogo
@@ -27,7 +29,7 @@ def run_game():
         # Livra-se dos projéteis que desapareceram
         gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
 
-        gf.update_aliens(ai_settings, aliens)
+        gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
         # Observa eventos de teclado e de mouse
         gf.check_events(ai_settings, screen, ship, bullets)

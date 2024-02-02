@@ -2,6 +2,7 @@ import sys
 import pygame
 from alien import Alien
 from bullet import Bullet
+from time import sleep
 
 
 def check_events(ai_settings, screen, ship, bullets):
@@ -119,10 +120,12 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     return number_rows
 
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """Atualiza as posições de todos os alienígenas da frota."""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
 
 def change_fleet_direction(ai_settings, aliens):
@@ -138,3 +141,18 @@ def check_fleet_edges(ai_settings, aliens):
         if alien.check_edges():
             change_fleet_direction(ai_settings, aliens)
             break
+
+
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Responde ao fato de a espaçonave ter sido atingida por um
+    alienígena."""
+    # Decrementa ships_left
+    stats.ships_left -= 1
+    # Esvazia a lista de alienígenas e de projéteis
+    aliens.empty()
+    bullets.empty()
+    # Cria uma nova frota e centraliza a espaçonave
+    create_fleet(ai_settings, screen, aliens, ship)
+    ship.center_ship()
+    # Faz uma pausa
+    sleep(0.5)
